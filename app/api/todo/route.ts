@@ -13,7 +13,7 @@ export async function POST(req: Request, res: Response) {
       },
     });
     return NextResponse.json({
-      message: res,
+      message: `Todo created successfully with ${res.title} `,
     });
   } catch (error) {
     return NextResponse.json({
@@ -22,11 +22,11 @@ export async function POST(req: Request, res: Response) {
   }
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest, res: NextApiResponse<Todo>) {
   try {
     const todos = await prisma.todo.findMany();
     return NextResponse.json({
-      todos,
+      data: todos,
     });
   } catch (error) {
     return NextResponse.json({
