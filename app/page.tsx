@@ -2,7 +2,7 @@
 
 export default function Home() {
   const createTodo = async () => {
-    const res = await fetch("/api/hello", {
+    const res = await fetch("/api/todo", {
       method: "POST",
       body: JSON.stringify({
         title: "New Todo",
@@ -12,7 +12,6 @@ export default function Home() {
         "Content-Type": "application/json",
       },
     });
-    console.log(await res.json());
   };
   return (
     <main>
