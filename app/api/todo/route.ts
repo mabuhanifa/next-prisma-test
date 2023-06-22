@@ -1,12 +1,19 @@
+import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
+const prisma = new PrismaClient();
 
 export async function POST(req: Request, res: Response) {
   const { title, isCompleted } = await req.json();
   try {
-    console.log({ title, isCompleted });
+    const res = await prisma.todo.create({
+      data: {
+        title,
+        isCompleted,
+      },
+    });
     return NextResponse.json({
-      message: { title, isCompleted },
+      message: res,
     });
   } catch (error) {
     return NextResponse.json({
@@ -17,10 +24,13 @@ export async function POST(req: Request, res: Response) {
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
   try {
+    const todos = await prisma.todo.findMany();
     return NextResponse.json({
-      HI: "HI",
+      todos,
     });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({
+      message: error,
+    });
   }
 }
