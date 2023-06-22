@@ -13,7 +13,7 @@ export async function POST(req: Request, res: Response) {
       },
     });
     return NextResponse.json({
-      message: `Todo created successfully with ${res.title} `,
+      message: `Todo created successfully with title : ${res.title} `,
     });
   } catch (error) {
     return NextResponse.json({
