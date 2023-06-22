@@ -1,14 +1,23 @@
 "use client";
-import { useEffect } from "react";
 
 export default function Home() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("/api/hello");
-      const data = await res.json();
-      console.log(data);
-    };
-    fetchData();
-  }, []);
-  return <main></main>;
+  const createTodo = async () => {
+    const res = await fetch("/api/hello", {
+      method: "POST",
+      body: JSON.stringify({
+        title: "New Todo",
+        completed: false,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(await res.json());
+  };
+  return (
+    <main>
+      <h1>Hello World</h1>
+      <button onClick={createTodo}>Create</button>
+    </main>
+  );
 }
