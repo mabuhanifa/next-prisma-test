@@ -13,11 +13,13 @@ export async function POST(req: Request, res: Response) {
       },
     });
     return NextResponse.json({
-      message: `Todo created successfully with title : ${res.title} `,
+      message: `Todo created successfully with title : ${res.title} & id ${res.id}`,
+      success: true,
     });
   } catch (error) {
     return NextResponse.json({
       message: error,
+      success: false,
     });
   }
 }
@@ -27,10 +29,12 @@ export async function GET(req: NextApiRequest, res: NextApiResponse<Todo>) {
     const todos = await prisma.todo.findMany();
     return NextResponse.json({
       data: todos,
+      success: true,
     });
   } catch (error) {
     return NextResponse.json({
       message: error,
+      success: false,
     });
   }
 }
